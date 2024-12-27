@@ -1,10 +1,11 @@
 import database from "infra/database.js";
 
-beforeAll(cleanDatabase);
+import orchestrator from "tests/orchestrator.js";
 
-async function cleanDatabase() {
+beforeAll(async () => {
+  await orchestrator.waitForAllServives();
   await database.query("drop schema public cascade; create schema public;");
-}
+});
 
 const endpoint = "http://localhost:3000";
 
